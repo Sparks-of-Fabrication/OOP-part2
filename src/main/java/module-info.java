@@ -9,6 +9,7 @@ module com.sparks.of.fabrication.oop2 {
     requires org.apache.logging.log4j;
     requires jakarta.persistence;
     requires org.slf4j;
+    requires annotations;
 
     opens com.sparks.of.fabrication.oop2 to javafx.fxml;
     exports com.sparks.of.fabrication.oop2;
