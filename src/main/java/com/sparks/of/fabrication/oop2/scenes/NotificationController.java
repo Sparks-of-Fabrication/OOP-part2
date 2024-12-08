@@ -36,9 +36,8 @@ public class NotificationController {
 
     @FXML
     public void initialize() {
-
         idNotificationColumn.setCellValueFactory(new PropertyValueFactory<>("idNotification"));
-        idEmployeeColumn.setCellValueFactory(new PropertyValueFactory<>("employee.idEmployee"));
+        idEmployeeColumn.setCellValueFactory(new PropertyValueFactory<>("idEmployee"));
         messageColumn.setCellValueFactory(new PropertyValueFactory<>("message"));
         statusColumn.setCellValueFactory(new PropertyValueFactory<>("status"));
         dateSentColumn.setCellValueFactory(new PropertyValueFactory<>("dateSent"));
@@ -48,7 +47,6 @@ public class NotificationController {
         messageColumn.prefWidthProperty().bind(notificationTable.widthProperty().multiply(0.4));
         statusColumn.prefWidthProperty().bind(notificationTable.widthProperty().multiply(0.2));
         dateSentColumn.prefWidthProperty().bind(notificationTable.widthProperty().multiply(0.2));
-
 
         loadNotifications();
     }
@@ -63,7 +61,7 @@ public class NotificationController {
         } else {
             notifications = FXCollections.observableArrayList(notificationList);
         }
+
         notificationTable.setItems(notifications);
     }
 }
-

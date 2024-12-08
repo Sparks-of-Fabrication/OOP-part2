@@ -57,6 +57,7 @@ public class Client_scene {
         arrivalPriceColumn.setCellValueFactory(new PropertyValueFactory<>("arrivalPrice"));
         quantityColumn.setCellValueFactory(new PropertyValueFactory<>("quantity"));
 
+
         loadItems();
     }
 
@@ -65,8 +66,13 @@ public class Client_scene {
         if (itemList != null) {
             items = FXCollections.observableArrayList(itemList);
             itemTable.setItems(items);
+            System.out.println("Loaded items: " + itemList);
+        } else {
+            System.out.println("No items found in the database.");
         }
     }
+
+
 
     @FXML
     private void showCart() {

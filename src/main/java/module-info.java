@@ -15,9 +15,7 @@ module com.sparks.of.fabrication.oop2 {
     requires org.hibernate.orm.core;
     requires spring.security.crypto;
 
-    opens com.sparks.of.fabrication.oop2.models to org.hibernate.orm.core; // Open package for Hibernate reflection
-
-
+    opens com.sparks.of.fabrication.oop2.models to org.hibernate.orm.core, javafx.base;
 
     opens com.sparks.of.fabrication.oop2 to javafx.fxml;
     opens com.sparks.of.fabrication.oop2.scenes to javafx.fxml;
