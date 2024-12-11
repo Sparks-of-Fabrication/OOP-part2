@@ -9,9 +9,11 @@ Button {
     -fx-text-fill: lightcoral;
     -fx-background-color: green;
 }
+
 TextField {
     -fx-pref-width: 20%;
     -fx-pref-height: 100%;
     -fx-padding: 2px;
+    -fx-margin: 2px;
     -fx-font-size: 15px;
 }

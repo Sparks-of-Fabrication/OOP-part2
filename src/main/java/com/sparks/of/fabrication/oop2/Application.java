@@ -1,6 +1,8 @@
 package com.sparks.of.fabrication.oop2;
 
+import com.sparks.of.fabrication.oop2.models.RoleModel;
 import com.sparks.of.fabrication.oop2.scenes.SceneLoader;
+import com.sparks.of.fabrication.oop2.users.Role;
 import com.sparks.of.fabrication.oop2.utils.EntityManagerWrapper;
 import com.sparks.of.fabrication.oop2.utils.Env;
 import jakarta.persistence.EntityManager;
@@ -25,6 +27,19 @@ public class Application extends javafx.application.Application {
         sceneLoader.loadScene("scenes/main_scene.fxml",450, 240,"Main",false,stage);
     }
 
+    private static void setupDB() throws NoSuchFieldException {
+        for (Role role : Role.values()) {
+            if(!entityManager.findEntityByVal(RoleModel.class, RoleModel.class.getDeclaredField("role"), role).x()) {
+                RoleModel roleModel = new RoleModel();
+                roleModel.setRole(role);
+                if(!entityManager.genEntity(roleModel)) {
+                    log.error("Couldn't save to database! {}", roleModel.getId());
+                    throw new RuntimeException("Couldn't save to database!");
+                }
+            }
+        }
+    }
+
     private static void exit() {
         boolean exit = entityManager.cleanUp();
 
@@ -38,7 +53,8 @@ public class Application extends javafx.application.Application {
         }
     }
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws NoSuchFieldException {
+        setupDB();
         launch();
         exit();
     }

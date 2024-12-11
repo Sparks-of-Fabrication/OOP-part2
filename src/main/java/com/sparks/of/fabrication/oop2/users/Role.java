@@ -1,7 +1,10 @@
 package com.sparks.of.fabrication.oop2.users;
 
+import lombok.Getter;
+
 import java.util.Set;
 
+@Getter
 public enum Role {
     CASHIER(Set.of(Privileges.CASHIER)),
     MANAGER(Set.of(Privileges.MANAGE_INVENTORY, Privileges.VIEW_REPORTS)),
@@ -13,7 +16,4 @@ public enum Role {
         this.privileges = privileges;
     }
 
-    public Set<Privileges> getPrivileges() {
-        return privileges;
-    }
 }

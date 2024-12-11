@@ -80,6 +80,21 @@ public class EntityManagerWrapper {
         }
     }
 
+    public <T, Y> Pair<Boolean, List<T>> findEntityByValAll(Class<T> tClass, Field field, Y value) {
+        try{
+            String jpql = "SELECT e FROM " + tClass.getSimpleName() + " e WHERE e." + field.getName() + " = :value";
+            TypedQuery<T> query = this.em.createQuery(jpql, tClass);
+            query.setParameter("value", value);
+
+            List<T> entity = query.getResultList();
+
+            return new Pair<>(true, entity);
+        }catch (Exception e) {
+            log.error(e.getMessage(), e);
+            return new Pair<>(false, null);
+        }
+    }
+
     public <T> List<T> findAllEntities(Class<T> tClass) {
         try {
             String jpql = "SELECT e FROM " + tClass.getSimpleName() + " e";
@@ -115,6 +130,47 @@ public class EntityManagerWrapper {
             log.error(e.getMessage(), e);
             rollbackTransaction();
             return new Pair<>(false, null);
+        }
+    }
+
+    public <T> boolean deleteEntityById(Class<T> tClass, int id) {
+        try {
+            T entity = em.find(tClass, id);
+            beginTransaction();
+            em.remove(entity);
+            commitTransaction();
+
+            return true;
+        } catch (Exception e) {
+            log.error(e.getMessage(), e);
+            rollbackTransaction();
+
+            return false;
+        }
+    }
+
+    public <T> boolean updateEntityByFields(Class<T> tClass, int id, HashMap<Field, ?> data) {
+        try {
+            @NotNull
+            StringBuilder jpql = new StringBuilder();
+
+            jpql.append("UPDATE ");
+            jpql.append(tClass.getSimpleName());
+            jpql.append(" SET ");
+
+            data.forEach((field, input) -> {
+                jpql.append(field.getName()).append(" = ").append(input);
+            });
+
+            jpql.append(" WHERE ").append("id = ").append(id);
+
+            em.createQuery(jpql.toString(), tClass).executeUpdate();
+
+            return false;
+        }catch (Exception e) {
+            log.error(e.getMessage(), e);
+            rollbackTransaction();
+            return false;
         }
     }
 

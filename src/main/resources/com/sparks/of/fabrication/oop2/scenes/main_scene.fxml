@@ -13,11 +13,11 @@
 
     <Label text="User Name:"/>
 
-    <TextField fx:id="username" maxWidth="200" />
+    <TextField fx:id="username" maxWidth="200" id="rounded-btn" />
 
     <Label text="Password:"/>
 
-    <PasswordField fx:id="passwordField" maxWidth="200"/>
+    <PasswordField fx:id="passwordField" maxWidth="200" id="rounded-btn" />
 
     <Button text="Login" onAction="#checkCredentials"/>
 </VBox>
